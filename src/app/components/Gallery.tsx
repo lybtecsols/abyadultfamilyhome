@@ -3,73 +3,126 @@
 import * as React from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Button } from "./ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "./ui/carousel";
-import galleryPhoto1 from "../../imports/lgjklkgllkl.jpeg";
-import galleryPhoto2 from "../../imports/sdfgfdshgh.jpeg";
-import galleryPhoto3 from "../../imports/sdfhgfsjgfsjf.jpeg";
-import galleryPhoto4 from "../../imports/image-1.png";
-import galleryPhoto5 from "../../imports/image-2.png";
+import living1 from "../../imports/lgjklkgllkl.jpeg";
+import living2 from "../../imports/image-1.png";
+import living3 from "../../imports/image-2.png";
+import living4 from "../../imports/image.png";
+import bedroom1 from "../../imports/sdfgfdshgh.jpeg";
+import bedroom2 from "../../imports/fgkhjlhjgll.jpeg";
+import bathroom1 from "../../imports/sdfhgfsjgfsjf.jpeg";
+import exterior1 from "../../imports/13.jpeg";
+import exterior2 from "../../imports/24124.jpeg";
+import exterior3 from "../../imports/adsfsadf.jpeg";
+import hallway1 from "../../imports/asdfsaf.jpeg";
+import hallway2 from "../../imports/asdgadg.jpeg";
+import hallway3 from "../../imports/dgjhmvcmvcjm.jpeg";
+import hallway4 from "../../imports/hjkhgjgjk.jpeg";
 
-const filters = ["All", "Kitchen", "Bathroom", "Bedroom", "Living", "Dining"];
-
-const photos = [
+const galleryGroups = [
   {
-    src: galleryPhoto1,
-    alt: "Aby Adult Family Home — welcoming living area",
-    label: "Living",
-    description: "Open-plan living area with gentle natural light.",
+    key: "living",
+    title: "Living Areas",
+    description: "Comfortable seating, natural light, and warm communal spaces.",
+    photos: [
+      {
+        src: living1,
+        alt: "A bright living area with comfortable seating",
+      },
+      {
+        src: living2,
+        alt: "Open family room with soft lighting and cozy seating",
+      },
+      {
+        src: living3,
+        alt: "Large living space with recliners and a welcoming layout",
+      },
+      {
+        src: living4,
+        alt: "Inviting lounge area with natural wood floors and light",
+      },
+    ],
   },
   {
-    src: galleryPhoto2,
-    alt: "Aby Adult Family Home — cozy bedroom",
-    label: "Bedroom",
-    description: "Comfortable bedroom designed for restful stays.",
+    key: "bedroom",
+    title: "Bedrooms",
+    description: "Private, restful bedrooms designed for calm and comfort.",
+    photos: [
+      {
+        src: bedroom1,
+        alt: "Cozy bedroom with a comfortable bed and soft finishing touches",
+      },
+      {
+        src: bedroom2,
+        alt: "Quiet bedroom with a full bed and peaceful lighting",
+      },
+    ],
   },
   {
-    src: galleryPhoto3,
-    alt: "Aby Adult Family Home — warm dining",
-    label: "Dining",
-    description: "Shared dining space for meals and connection.",
+    key: "bathroom",
+    title: "Bathrooms",
+    description: "Accessible and clean bathroom spaces with safety rails.",
+    photos: [
+      {
+        src: bathroom1,
+        alt: "Accessible bathroom with grab bars and tiled walls",
+      },
+    ],
   },
   {
-    src: galleryPhoto4,
-    alt: "Aby Adult Family Home — bright kitchen",
-    label: "Kitchen",
-    description: "A bright kitchen with a welcoming, homey feel.",
+    key: "exterior",
+    title: "Exterior",
+    description: "The home's welcoming exterior and landscaped grounds.",
+    photos: [
+      {
+        src: exterior1,
+        alt: "Front entrance with flowering shrubs and a welcoming facade",
+      },
+      {
+        src: exterior2,
+        alt: "Exterior view of the home with a ramp and trimmed landscaping",
+      },
+      {
+        src: exterior3,
+        alt: "The home exterior surrounded by trees and greenery",
+      },
+    ],
   },
   {
-    src: galleryPhoto5,
-    alt: "Aby Adult Family Home — calm bathroom",
-    label: "Bathroom",
-    description: "Accessible bathroom with thoughtful finishes.",
+    key: "hallway",
+    title: "Hallways",
+    description: "Hallways designed for easy navigation and comfortable flow.",
+    photos: [
+      {
+        src: hallway1,
+        alt: "Wide hallway with supportive railings and warm flooring",
+      },
+      {
+        src: hallway2,
+        alt: "Hallway view with clear walkways and safety handrails",
+      },
+      {
+        src: hallway3,
+        alt: "Hallway leading toward living spaces with even lighting",
+      },
+      {
+        src: hallway4,
+        alt: "Accessible hallway that connects rooms and living areas",
+      },
+    ],
   },
 ];
 
 export function Gallery() {
-  const [activeFilter, setActiveFilter] = React.useState("All");
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-  const filteredPhotos = React.useMemo(
-    () =>
-      photos.filter(
-        (photo) => activeFilter === "All" || photo.label === activeFilter,
-      ),
-    [activeFilter],
+  const [activeGroupKey, setActiveGroupKey] = React.useState(galleryGroups[0].key);
+  const activeGroup = React.useMemo(
+    () => galleryGroups.find((group) => group.key === activeGroupKey) ?? galleryGroups[0],
+    [activeGroupKey],
   );
+  const [selectedPhoto, setSelectedPhoto] = React.useState(activeGroup.photos[0]);
 
   React.useEffect(() => {
-    if (selectedIndex >= filteredPhotos.length) {
-      setSelectedIndex(0);
-    }
-  }, [filteredPhotos, selectedIndex]);
-
-  const selectedPhoto = filteredPhotos[selectedIndex] ?? filteredPhotos[0];
+    setSelectedPhoto(activeGroup.photos[0]);
+  }, [activeGroup]);
 
   return (
     <section
@@ -100,115 +153,89 @@ export function Gallery() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {filters.map((filter) => (
+          {galleryGroups.map((group) => (
             <Button
-              key={filter}
+              key={group.key}
               size="sm"
-              variant={activeFilter === filter ? "secondary" : "outline"}
-              onClick={() => {
-                setActiveFilter(filter);
-                setSelectedIndex(0);
-              }}
+              variant={activeGroupKey === group.key ? "secondary" : "outline"}
+              onClick={() => setActiveGroupKey(group.key)}
             >
-              {filter}
+              {group.title}
             </Button>
           ))}
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr] items-start">
           <div className="rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200 bg-white">
-            <div className="relative group overflow-hidden">
+            <div className="relative overflow-hidden">
               <ImageWithFallback
-                src={selectedPhoto?.src}
-                alt={selectedPhoto?.alt}
-                className="w-full h-[520px] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                src={selectedPhoto.src}
+                alt={selectedPhoto.alt}
+                className="w-full h-[520px] object-cover transition-transform duration-700 ease-out hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 text-white">
-                <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-                  {selectedPhoto?.label}
-                </span>
-                <p className="mt-4 max-w-xl text-xl font-semibold leading-tight drop-shadow-sm">
-                  {selectedPhoto?.description}
-                </p>
-              </div>
             </div>
             <div className="p-6 bg-slate-50">
-              <p className="text-sm text-slate-600">
-                Click any tile to enlarge the image. Use the arrows to scroll through photos and keep exploring the home.
-              </p>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{activeGroup.title}</p>
+                  <h3 className="text-2xl font-semibold text-slate-900 mt-2">{selectedPhoto.alt}</h3>
+                </div>
+                <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                  Full image
+                </div>
+              </div>
+              <p className="mt-4 text-sm text-slate-600">{activeGroup.description}</p>
             </div>
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-[2rem] bg-white p-5 shadow-lg border border-slate-200">
-              <div className="flex items-center justify-between gap-4 mb-4">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Gallery</p>
-                  <h3 className="text-xl font-semibold text-slate-900">Explore photos</h3>
+            {galleryGroups.map((group) => (
+              <div key={group.key} className="rounded-[2rem] bg-white p-5 shadow-lg border border-slate-200">
+                <div className="flex items-center justify-between gap-4 mb-4">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.25em] text-slate-400">{group.title}</p>
+                    <h3 className="text-xl font-semibold text-slate-900">{group.description}</h3>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant={activeGroupKey === group.key ? "secondary" : "outline"}
+                    onClick={() => setActiveGroupKey(group.key)}
+                  >
+                    View group
+                  </Button>
                 </div>
-                <div className="text-right text-sm text-slate-500">
-                  {filteredPhotos.length} photo{filteredPhotos.length === 1 ? "" : "s"}
+                <div className="flex gap-4 overflow-x-auto pb-2">
+                  {group.photos.map((photo) => {
+                    const isSelected = selectedPhoto.src === photo.src;
+
+                    return (
+                      <button
+                        key={photo.alt}
+                        type="button"
+                        className={`relative min-w-[180px] flex-shrink-0 overflow-hidden rounded-3xl border transition-all duration-300 ${
+                          isSelected
+                            ? "border-emerald-500 shadow-[0_16px_48px_-24px_rgba(34,197,94,0.8)]"
+                            : "border-slate-200 hover:border-emerald-300"
+                        }`}
+                        onClick={() => {
+                          setActiveGroupKey(group.key);
+                          setSelectedPhoto(photo);
+                        }}
+                      >
+                        <ImageWithFallback
+                          src={photo.src}
+                          alt={photo.alt}
+                          className="h-32 w-full object-cover"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/70 to-transparent p-3 text-white text-xs font-medium">
+                          {photo.alt}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-
-              <div className="relative">
-                <Carousel opts={{ align: "start", containScroll: "trimSnaps" }}>
-                  <CarouselContent className="gap-4 py-2">
-                    {filteredPhotos.map((photo, index) => {
-                      const isSelected = selectedPhoto === photo;
-
-                      return (
-                        <CarouselItem key={`${photo.alt}-${index}`} className="w-[240px]">
-                          <button
-                            type="button"
-                            className={`group relative block w-full overflow-hidden rounded-[1.75rem] border transition duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-200 ${
-                              isSelected
-                                ? "border-emerald-500 shadow-[0_20px_60px_-20px_rgba(34,197,94,0.6)]"
-                                : "border-slate-200 hover:border-emerald-300"
-                            }`}
-                            onClick={() => setSelectedIndex(index)}
-                            onFocus={() => setSelectedIndex(index)}
-                          >
-                            <div className="relative h-44 overflow-hidden">
-                              <ImageWithFallback
-                                src={photo.src}
-                                alt={photo.alt}
-                                className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                            </div>
-                            <div className="p-4 bg-white">
-                              <span className="inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                                {photo.label}
-                              </span>
-                              <p className="mt-3 text-sm font-medium text-slate-900">
-                                {photo.alt}
-                              </p>
-                            </div>
-                            {isSelected && (
-                              <div className="pointer-events-none absolute inset-x-0 bottom-0 border-t border-emerald-100 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.2em] text-emerald-700">
-                                Selected
-                              </div>
-                            )}
-                          </button>
-                        </CarouselItem>
-                      );
-                    })}
-                  </CarouselContent>
-
-                  <CarouselPrevious className="bg-white shadow-lg text-slate-900 hover:bg-slate-100" />
-                  <CarouselNext className="bg-white shadow-lg text-slate-900 hover:bg-slate-100" />
-                </Carousel>
-              </div>
-            </div>
-
-            <div className="rounded-[2rem] bg-white p-6 shadow-lg border border-slate-200">
-              <h4 className="text-lg font-semibold text-slate-900">Designed for comfort</h4>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                Each photo is grouped into a category so visitors can quickly jump to Kitchen, Bedroom, Bathroom, Living, or Dining scenes. The active tile grows and shows a soft focus effect when selected or focused.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>
