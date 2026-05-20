@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Button } from "./ui/button";
 import living1 from "../../imports/lgjklkgllkl.jpeg";
 import living2 from "../../imports/image-1.png";
 import living3 from "../../imports/image-2.png";
@@ -16,132 +15,79 @@ import hallway2 from "../../imports/asdgadg.jpeg";
 import hallway3 from "../../imports/dgjhmvcmvcjm.jpeg";
 import hallway4 from "../../imports/hjkhgjgjk.jpeg";
 
-const galleryGroups = [
-  {
-    key: "living",
-    title: "Living Areas",
-    description: "Comfortable seating, natural light, and warm communal spaces.",
-    photos: [
-      {
-        src: living1,
-        title: "Bright Living Area",
-        alt: "A bright living area with comfortable seating",
-      },
-      {
-        src: living2,
-        title: "Family Room",
-        alt: "Open family room with soft lighting and cozy seating",
-      },
-      {
-        src: living3,
-        title: "Spacious Lounge",
-        alt: "Large living space with recliners and a welcoming layout",
-      },
-      {
-        src: living4,
-        title: "Inviting Lounge",
-        alt: "Inviting lounge area with natural wood floors and light",
-      },
-    ],
-  },
-  {
-    key: "bedroom",
-    title: "Bedrooms",
-    description: "Private, restful bedrooms designed for calm and comfort.",
-    photos: [
-      {
-        src: bedroom1,
-        title: "Cozy Bedroom",
-        alt: "Cozy bedroom with a comfortable bed and soft finishing touches",
-      },
-      {
-        src: bedroom2,
-        title: "Peaceful Bedroom",
-        alt: "Quiet bedroom with a full bed and peaceful lighting",
-      },
-    ],
-  },
-  {
-    key: "bathroom",
-    title: "Bathrooms",
-    description: "Accessible and clean bathroom spaces with safety rails.",
-    photos: [
-      {
-        src: bathroom1,
-        title: "Accessible Bathroom",
-        alt: "Accessible bathroom with grab bars and tiled walls",
-      },
-    ],
-  },
-  {
-    key: "exterior",
-    title: "Exterior",
-    description: "The home's welcoming exterior and landscaped grounds.",
-    photos: [
-      {
-        src: exterior1,
-        title: "Welcoming Front Entrance",
-        alt: "Front entrance with flowering shrubs and a welcoming facade",
-      },
-      {
-        src: exterior2,
-        title: "Home Exterior",
-        alt: "Exterior view of the home with a ramp and trimmed landscaping",
-      },
-      {
-        src: exterior3,
-        title: "Landscaped Grounds",
-        alt: "The home exterior surrounded by trees and greenery",
-      },
-    ],
-  },
-  {
-    key: "hallway",
-    title: "Hallways",
-    description: "Hallways designed for easy navigation and comfortable flow.",
-    photos: [
-      {
-        src: hallway1,
-        title: "Accessible Hallway",
-        alt: "Wide hallway with supportive railings and warm flooring",
-      },
-      {
-        src: hallway2,
-        title: "Clear Walkway",
-        alt: "Hallway view with clear walkways and safety handrails",
-      },
-      {
-        src: hallway3,
-        title: "Main Corridor",
-        alt: "Hallway leading toward living spaces with even lighting",
-      },
-      {
-        src: hallway4,
-        title: "Connected Hallway",
-        alt: "Accessible hallway that connects rooms and living areas",
-      },
-    ],
-  },
+const categories = [
+  { key: "all", label: "All Photos" },
+  { key: "living", label: "Living Areas" },
+  { key: "bedroom", label: "Bedrooms" },
+  { key: "bathroom", label: "Bathrooms" },
+  { key: "exterior", label: "Exterior" },
+  { key: "hallway", label: "Hallways" },
+];
+
+const allPhotos = [
+  { src: living1, title: "Bright Living Area", category: "living" },
+  { src: living2, title: "Family Room", category: "living" },
+  { src: living3, title: "Spacious Lounge", category: "living" },
+  { src: living4, title: "Inviting Lounge", category: "living" },
+  { src: bedroom1, title: "Cozy Bedroom", category: "bedroom" },
+  { src: bedroom2, title: "Peaceful Bedroom", category: "bedroom" },
+  { src: bathroom1, title: "Accessible Bathroom", category: "bathroom" },
+  { src: exterior1, title: "Welcoming Front Entrance", category: "exterior" },
+  { src: exterior2, title: "Home Exterior", category: "exterior" },
+  { src: exterior3, title: "Landscaped Grounds", category: "exterior" },
+  { src: hallway1, title: "Accessible Hallway", category: "hallway" },
+  { src: hallway2, title: "Clear Walkway", category: "hallway" },
+  { src: hallway3, title: "Main Corridor", category: "hallway" },
+  { src: hallway4, title: "Connected Hallway", category: "hallway" },
 ];
 
 export function Gallery() {
-  const [activeGroupKey, setActiveGroupKey] = React.useState(galleryGroups[0].key);
-  const activeGroup = React.useMemo(
-    () => galleryGroups.find((group) => group.key === activeGroupKey) ?? galleryGroups[0],
-    [activeGroupKey],
+  const [activeCategory, setActiveCategory] = React.useState("all");
+  const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null);
+
+  const filtered = React.useMemo(
+    () => (activeCategory === "all" ? allPhotos : allPhotos.filter((p) => p.category === activeCategory)),
+    [activeCategory],
   );
-  const [selectedPhoto, setSelectedPhoto] = React.useState(activeGroup.photos[0]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    setLightboxIndex(null);
+    document.body.style.overflow = "";
+  };
+
+  const prev = () => {
+    if (lightboxIndex === null) return;
+    setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
+  };
+
+  const next = () => {
+    if (lightboxIndex === null) return;
+    setLightboxIndex((lightboxIndex + 1) % filtered.length);
+  };
 
   React.useEffect(() => {
-    setSelectedPhoto(activeGroup.photos[0]);
-  }, [activeGroup]);
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "Escape") closeLightbox();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIndex, filtered.length]);
+
+  const hero = filtered[0];
+  const gridThumbs = filtered.slice(1, 5);
 
   return (
-    <section
-      className="py-20"
-      style={{ background: "linear-gradient(180deg, #ffffff 0%, #F0FDFA 100%)" }}
-    >
+    <section id="gallery" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Header */}
         <div className="text-center mb-10">
           <span
             className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4"
@@ -153,104 +99,195 @@ export function Gallery() {
             className="text-gray-800"
             style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 800, lineHeight: 1.2 }}
           >
-            A Warm, Welcoming Place <br />
+            A Warm, Welcoming Place{" "}
             <span style={{ color: "#2BB5A0" }}>to Call Home</span>
           </h2>
-          <p
-            className="text-gray-500 mt-4 max-w-2xl mx-auto"
-            style={{ fontSize: "1.05rem", lineHeight: 1.7 }}
-          >
+          <p className="text-gray-500 mt-3 max-w-xl mx-auto" style={{ fontSize: "1.05rem", lineHeight: 1.7 }}>
             Take a look inside Aby Adult Family Home — thoughtfully designed for comfort, safety, and joy.
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {galleryGroups.map((group) => (
-            <Button
-              key={group.key}
-              size="sm"
-              variant={activeGroupKey === group.key ? "secondary" : "outline"}
-              onClick={() => setActiveGroupKey(group.key)}
-            >
-              {group.title}
-            </Button>
-          ))}
+        {/* Category tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {categories.map((cat) => {
+            const count = cat.key === "all" ? allPhotos.length : allPhotos.filter((p) => p.category === cat.key).length;
+            const active = activeCategory === cat.key;
+            return (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+                style={{
+                  backgroundColor: active ? "#2BB5A0" : "#F0FDFA",
+                  color: active ? "white" : "#1E8A7E",
+                  border: `1.5px solid ${active ? "#2BB5A0" : "#A7F3D0"}`,
+                }}
+              >
+                {cat.label}
+                <span
+                  className="ml-1.5 text-xs"
+                  style={{ opacity: active ? 0.8 : 0.6 }}
+                >
+                  ({count})
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr] items-start">
-          <div className="rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200 bg-white">
-            <div className="relative overflow-hidden">
-              <ImageWithFallback
-                src={selectedPhoto.src}
-                alt={selectedPhoto.alt}
-                className="w-full h-[520px] object-cover transition-transform duration-700 ease-out hover:scale-105"
-              />
-            </div>
-            <div className="p-6 bg-slate-50">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{activeGroup.title}</p>
-                  <h3 className="text-2xl font-semibold text-slate-900 mt-2">{selectedPhoto.title}</h3>
-                </div>
-                <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
-                  Full image
-                </div>
+        {/* Redfin-style photo grid */}
+        {filtered.length > 0 && (
+          <div className="relative rounded-2xl overflow-hidden" style={{ height: "520px" }}>
+            <div className="grid h-full gap-2" style={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr" }}>
+              {/* Hero — spans full height on left */}
+              <div
+                className="relative cursor-pointer overflow-hidden group row-span-2"
+                onClick={() => openLightbox(0)}
+              >
+                <ImageWithFallback
+                  src={hero.src}
+                  alt={hero.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
               </div>
-              <p className="mt-4 text-sm text-slate-600">{activeGroup.description}</p>
+
+              {/* 2×2 thumbnail grid on right */}
+              {[0, 1, 2, 3].map((i) => {
+                const photo = gridThumbs[i];
+                if (!photo) {
+                  return <div key={i} className="bg-gray-100" />;
+                }
+                const isLast = i === 3;
+                const remainingCount = filtered.length - 5;
+                return (
+                  <div
+                    key={i}
+                    className="relative cursor-pointer overflow-hidden group"
+                    onClick={() => openLightbox(i + 1)}
+                  >
+                    <ImageWithFallback
+                      src={photo.src}
+                      alt={photo.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+                    {isLast && remainingCount > 0 && (
+                      <div
+                        className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
+                        style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
+                        onClick={(e) => { e.stopPropagation(); openLightbox(4); }}
+                      >
+                        <span className="text-white font-bold" style={{ fontSize: "2rem" }}>+{remainingCount}</span>
+                        <span className="text-white/90 text-sm mt-1">See all photos</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
+
+            {/* "See all photos" button */}
+            <button
+              onClick={() => openLightbox(0)}
+              className="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white shadow-lg text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-all duration-200 border border-gray-200"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="m3 9 18 0" />
+                <path d="m9 21 0-12" />
+              </svg>
+              See all {filtered.length} photos
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: "rgba(0,0,0,0.95)" }}
+          onClick={closeLightbox}
+        >
+          {/* Close */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-5 right-5 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+            aria-label="Close gallery"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          {/* Counter + title */}
+          <div className="absolute top-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-10">
+            <span className="text-white/60 text-sm font-medium">
+              {lightboxIndex + 1} / {filtered.length}
+            </span>
+            <span className="text-white font-semibold text-base">
+              {filtered[lightboxIndex].title}
+            </span>
           </div>
 
-          <div className="space-y-6">
-            {galleryGroups.map((group) => (
-              <div key={group.key} className="rounded-[2rem] bg-white p-5 shadow-lg border border-slate-200">
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.25em] text-slate-400">{group.title}</p>
-                    <h3 className="text-xl font-semibold text-slate-900">{group.description}</h3>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant={activeGroupKey === group.key ? "secondary" : "outline"}
-                    onClick={() => setActiveGroupKey(group.key)}
-                  >
-                    View group
-                  </Button>
-                </div>
-                <div className="flex gap-4 overflow-x-auto pb-2">
-                  {group.photos.map((photo) => {
-                    const isSelected = selectedPhoto.src === photo.src;
+          {/* Prev arrow */}
+          <button
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+            className="absolute left-4 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+            aria-label="Previous photo"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
 
-                    return (
-                      <button
-                        key={photo.alt}
-                        type="button"
-                        className={`relative min-w-[180px] flex-shrink-0 overflow-hidden rounded-3xl border transition-all duration-300 ${
-                          isSelected
-                            ? "border-emerald-500 shadow-[0_16px_48px_-24px_rgba(34,197,94,0.8)]"
-                            : "border-slate-200 hover:border-emerald-300"
-                        }`}
-                        onClick={() => {
-                          setActiveGroupKey(group.key);
-                          setSelectedPhoto(photo);
-                        }}
-                      >
-                        <ImageWithFallback
-                          src={photo.src}
-                          alt={photo.alt}
-                          className="h-32 w-full object-cover"
-                        />
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/70 to-transparent p-3 text-white text-xs font-medium">
-                          {photo.alt}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+          {/* Main image */}
+          <div
+            className="relative max-w-5xl w-full mx-16 flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={filtered[lightboxIndex].src}
+              alt={filtered[lightboxIndex].title}
+              className="max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl"
+            />
+          </div>
+
+          {/* Next arrow */}
+          <button
+            onClick={(e) => { e.stopPropagation(); next(); }}
+            className="absolute right-4 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+            aria-label="Next photo"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+
+          {/* Thumbnail strip */}
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 overflow-x-auto max-w-[90vw] px-4">
+            {filtered.map((photo, i) => (
+              <button
+                key={i}
+                onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
+                className="flex-shrink-0 rounded-lg overflow-hidden transition-all duration-200"
+                style={{
+                  width: "64px",
+                  height: "48px",
+                  opacity: i === lightboxIndex ? 1 : 0.45,
+                  border: i === lightboxIndex ? "2px solid #2BB5A0" : "2px solid transparent",
+                  transform: i === lightboxIndex ? "scale(1.1)" : "scale(1)",
+                }}
+                aria-label={photo.title}
+              >
+                <img src={photo.src} alt={photo.title} className="w-full h-full object-cover" />
+              </button>
             ))}
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
