@@ -85,7 +85,7 @@ const allPhotos = [
   // Corridor
   { src: corr2,      title: "Main Corridor",                    category: "hallway"  },
   { src: corr5,      title: "Resident Hallway",                 category: "hallway"  },
-  { src: corr3,      title: "Corridor to Living Area",          category: "hallway"  },
+  { src: corr3,      title: "Front Entrance & Ramp",             category: "exterior" },
   { src: corr4,      title: "Hallway with Room Doors",          category: "hallway"  },
   { src: corr1,      title: "Care Wing Corridor",               category: "hallway"  },
   { src: corr6,      title: "Safety Rails & Handrails",         category: "hallway"  },
