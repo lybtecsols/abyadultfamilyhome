@@ -1,44 +1,38 @@
 import * as React from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import living1 from "../../imports/lgjklkgllkl.jpeg";
-import living2 from "../../imports/image-1.png";
-import living3 from "../../imports/image-2.png";
-import living4 from "../../imports/image.png";
-import bedroom1 from "../../imports/sdfgfdshgh.jpeg";
-import bedroom2 from "../../imports/fgkhjlhjgll.jpeg";
-import bathroom1 from "../../imports/sdfhgfsjgfsjf.jpeg";
-import exterior1 from "../../imports/13.jpeg";
-import exterior2 from "../../imports/24124.jpeg";
-import exterior3 from "../../imports/adsfsadf.jpeg";
-import hallway1 from "../../imports/asdfsaf.jpeg";
-import hallway2 from "../../imports/asdgadg.jpeg";
-import hallway3 from "../../imports/dgjhmvcmvcjm.jpeg";
-import hallway4 from "../../imports/hjkhgjgjk.jpeg";
+import photo1 from "../../imports/lgjklkgllkl.jpeg";
+import photo5 from "../../imports/sdfgfdshgh.jpeg";
+import photo6 from "../../imports/fgkhjlhjgll.jpeg";
+import photo7 from "../../imports/sdfhgfsjgfsjf.jpeg";
+import photo8 from "../../imports/13.jpeg";
+import photo9 from "../../imports/24124.jpeg";
+import photo10 from "../../imports/adsfsadf.jpeg";
+import photo11 from "../../imports/asdfsaf.jpeg";
+import photo12 from "../../imports/asdgadg.jpeg";
+import photo13 from "../../imports/dgjhmvcmvcjm.jpeg";
+import photo14 from "../../imports/hjkhgjgjk.jpeg";
 
 const categories = [
   { key: "all", label: "All Photos" },
-  { key: "living", label: "Living Areas" },
+  { key: "living", label: "Living Room" },
   { key: "bedroom", label: "Bedrooms" },
   { key: "bathroom", label: "Bathrooms" },
   { key: "exterior", label: "Exterior" },
-  { key: "hallway", label: "Hallways" },
+  { key: "hallway", label: "Corridor" },
 ];
 
 const allPhotos = [
-  { src: living1, title: "Bright Living Area", category: "living" },
-  { src: living2, title: "Family Room", category: "living" },
-  { src: living3, title: "Spacious Lounge", category: "living" },
-  { src: living4, title: "Inviting Lounge", category: "living" },
-  { src: bedroom1, title: "Cozy Bedroom", category: "bedroom" },
-  { src: bedroom2, title: "Peaceful Bedroom", category: "bedroom" },
-  { src: bathroom1, title: "Accessible Bathroom", category: "bathroom" },
-  { src: exterior1, title: "Welcoming Front Entrance", category: "exterior" },
-  { src: exterior2, title: "Home Exterior", category: "exterior" },
-  { src: exterior3, title: "Landscaped Grounds", category: "exterior" },
-  { src: hallway1, title: "Accessible Hallway", category: "hallway" },
-  { src: hallway2, title: "Clear Walkway", category: "hallway" },
-  { src: hallway3, title: "Main Corridor", category: "hallway" },
-  { src: hallway4, title: "Connected Hallway", category: "hallway" },
+  { src: photo8,  title: "Bright Living Room",       category: "living"   },
+  { src: photo9,  title: "Spacious Living Area",      category: "living"   },
+  { src: photo6,  title: "Private Bedroom",           category: "bedroom"  },
+  { src: photo10, title: "Clean Bathroom",            category: "bathroom" },
+  { src: photo11, title: "Accessible Bathroom",       category: "bathroom" },
+  { src: photo1,  title: "Home Exterior",             category: "exterior" },
+  { src: photo13, title: "Front Grounds",             category: "exterior" },
+  { src: photo14, title: "Landscaped Surroundings",   category: "exterior" },
+  { src: photo5,  title: "Main Corridor",             category: "hallway"  },
+  { src: photo7,  title: "Accessible Hallway",        category: "hallway"  },
+  { src: photo12, title: "Connecting Walkway",        category: "hallway"  },
 ];
 
 export function Gallery() {

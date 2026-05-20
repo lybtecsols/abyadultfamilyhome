@@ -1,6 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import aboutPhoto1 from "../../imports/image-1.png";
-import aboutPhoto2 from "../../imports/image-2.png";
+import aboutPhoto1 from "../../imports/13.jpeg";
+import aboutPhoto2 from "../../imports/fgkhjlhjgll.jpeg";
 
 export function About() {
   return (
