@@ -1,38 +1,33 @@
 import * as React from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import photo1 from "../../imports/lgjklkgllkl.jpeg";
-import photo5 from "../../imports/sdfgfdshgh.jpeg";
-import photo6 from "../../imports/fgkhjlhjgll.jpeg";
-import photo7 from "../../imports/sdfhgfsjgfsjf.jpeg";
-import photo8 from "../../imports/13.jpeg";
-import photo9 from "../../imports/24124.jpeg";
-import photo10 from "../../imports/adsfsadf.jpeg";
-import photo11 from "../../imports/asdfsaf.jpeg";
-import photo12 from "../../imports/asdgadg.jpeg";
-import photo13 from "../../imports/dgjhmvcmvcjm.jpeg";
-import photo14 from "../../imports/hjkhgjgjk.jpeg";
+import exteriorFlowers from "../../imports/lgjklkgllkl.jpeg";
+import exteriorRamp    from "../../imports/dgjhmvcmvcjm.jpeg";
+import livingRoom1     from "../../imports/13.jpeg";
+import livingRoom2     from "../../imports/24124.jpeg";
+import bathroom1       from "../../imports/adsfsadf.jpeg";
+import bathroom2       from "../../imports/asdfsaf.jpeg";
+import corridor1       from "../../imports/sdfgfdshgh.jpeg";
+import corridor2       from "../../imports/asdgadg.jpeg";
+import corridor3       from "../../imports/sdfhgfsjgfsjf.jpeg";
 
 const categories = [
-  { key: "all", label: "All Photos" },
-  { key: "living", label: "Living Room" },
-  { key: "bedroom", label: "Bedrooms" },
-  { key: "bathroom", label: "Bathrooms" },
-  { key: "exterior", label: "Exterior" },
-  { key: "hallway", label: "Corridor" },
+  { key: "all",      label: "All Photos"  },
+  { key: "living",   label: "Living Room" },
+  { key: "bathroom", label: "Bathrooms"   },
+  { key: "exterior", label: "Exterior"    },
+  { key: "hallway",  label: "Corridor"    },
 ];
 
 const allPhotos = [
-  { src: photo8,  title: "Bright Living Room",       category: "living"   },
-  { src: photo9,  title: "Spacious Living Area",      category: "living"   },
-  { src: photo6,  title: "Private Bedroom",           category: "bedroom"  },
-  { src: photo10, title: "Clean Bathroom",            category: "bathroom" },
-  { src: photo11, title: "Accessible Bathroom",       category: "bathroom" },
-  { src: photo1,  title: "Home Exterior",             category: "exterior" },
-  { src: photo13, title: "Front Grounds",             category: "exterior" },
-  { src: photo14, title: "Landscaped Surroundings",   category: "exterior" },
-  { src: photo5,  title: "Main Corridor",             category: "hallway"  },
-  { src: photo7,  title: "Accessible Hallway",        category: "hallway"  },
-  { src: photo12, title: "Connecting Walkway",        category: "hallway"  },
+  { src: livingRoom2,      title: "Comfortable Living Space",        category: "living"   },
+  { src: livingRoom1,      title: "Spacious Living Room",            category: "living"   },
+  { src: bathroom1,        title: "Accessible Bathroom",             category: "bathroom" },
+  { src: bathroom2,        title: "Marble Tile Bathroom",            category: "bathroom" },
+  { src: exteriorFlowers,  title: "Blooming Front Garden",           category: "exterior" },
+  { src: exteriorRamp,     title: "Accessible Front Entrance",       category: "exterior" },
+  { src: corridor1,        title: "Care Wing Corridor",              category: "hallway"  },
+  { src: corridor2,        title: "Resident Hallway & Safety Rails", category: "hallway"  },
+  { src: corridor3,        title: "Main Corridor",                   category: "hallway"  },
 ];
 
 export function Gallery() {
