@@ -1,6 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import aboutPhoto1 from "../../imports/24124.jpeg";
-import aboutPhoto2 from "../../imports/fgkhjlhjgll.jpeg";
+import aboutPhoto1 from "../../imports/sitting.jpeg";
+import aboutPhoto2 from "../../imports/best.jpeg";
 
 export function About() {
   return (
@@ -30,14 +30,14 @@ export function About() {
               <div className="rounded-2xl overflow-hidden shadow-lg" style={{ height: "260px" }}>
                 <ImageWithFallback
                   src={aboutPhoto1}
-                  alt="Comfortable living room with recliners and fireplace"
+                  alt="Comfortable living room with recliners, fireplace and natural light"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="rounded-2xl overflow-hidden shadow-lg mt-8" style={{ height: "260px" }}>
                 <ImageWithFallback
                   src={aboutPhoto2}
-                  alt="Blooming front garden of Aby Adult Family Home"
+                  alt="Welcoming front garden of Aby Adult Family Home in bloom"
                   className="w-full h-full object-cover"
                 />
               </div>

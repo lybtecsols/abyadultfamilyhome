@@ -1,33 +1,95 @@
 import * as React from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import exteriorFlowers from "../../imports/lgjklkgllkl.jpeg";
-import exteriorRamp    from "../../imports/dgjhmvcmvcjm.jpeg";
-import livingRoom1     from "../../imports/13.jpeg";
-import livingRoom2     from "../../imports/24124.jpeg";
-import bathroom1       from "../../imports/adsfsadf.jpeg";
-import bathroom2       from "../../imports/asdfsaf.jpeg";
-import corridor1       from "../../imports/sdfgfdshgh.jpeg";
-import corridor2       from "../../imports/asdgadg.jpeg";
-import corridor3       from "../../imports/sdfhgfsjgfsjf.jpeg";
+
+// Living Room
+import sitting    from "../../imports/sitting.jpeg";
+import sitting2   from "../../imports/sitting 2.jpeg";
+import sitting3   from "../../imports/sitting3.jpeg";
+import tv         from "../../imports/tv.jpeg";
+import tv2        from "../../imports/tv2.jpeg";
+import lr1        from "../../imports/13.jpeg";
+import lr2        from "../../imports/24124.jpeg";
+import qetewrg    from "../../imports/qetewrg.jpeg";
+import lrBar      from "../../imports/WhatsApp Image 2026-05-08 at 18.49.55.jpeg";
+
+// Kitchen
+import kitchen    from "../../imports/12.jpeg";
+
+// Bedroom
+import bed        from "../../imports/bed.jpeg";
+import bedroom2   from "../../imports/adfgfdahh.jpeg";
+
+// Bathroom
+import bath1      from "../../imports/adsfsadf.jpeg";
+import bath2      from "../../imports/asdfsaf.jpeg";
+import bath3      from "../../imports/bath.jpeg";
+
+// Exterior
+import extStreet  from "../../imports/Screenshot 2026-05-08 202519.png";
+import extBest    from "../../imports/best.jpeg";
+import extWide    from "../../imports/hgjlkj;gjk.jpeg";
+import extFlower1 from "../../imports/lgjklkgllkl.jpeg";
+import extFlower2 from "../../imports/fgkhjlhjgll.jpeg";
+import extRamp1   from "../../imports/dgjhmvcmvcjm.jpeg";
+import extRamp2   from "../../imports/gjghfj.jpeg";
+import extRamp3   from "../../imports/fhkjfhlj.jpeg";
+
+// Corridor
+import corr1      from "../../imports/sdfgfdshgh.jpeg";
+import corr2      from "../../imports/sdfhgfsjgfsjf.jpeg";
+import corr3      from "../../imports/hjkhgjgjk.jpeg";
+import corr4      from "../../imports/adfhgdfsgh.jpeg";
+import corr5      from "../../imports/corr.jpeg";
+import corr6      from "../../imports/asdgadg.jpeg";
+import corr7      from "../../imports/asdgsdgadgs.jpeg";
 
 const categories = [
   { key: "all",      label: "All Photos"  },
   { key: "living",   label: "Living Room" },
+  { key: "kitchen",  label: "Kitchen"     },
+  { key: "bedroom",  label: "Bedrooms"    },
   { key: "bathroom", label: "Bathrooms"   },
   { key: "exterior", label: "Exterior"    },
   { key: "hallway",  label: "Corridor"    },
 ];
 
 const allPhotos = [
-  { src: livingRoom2,      title: "Comfortable Living Space",        category: "living"   },
-  { src: livingRoom1,      title: "Spacious Living Room",            category: "living"   },
-  { src: bathroom1,        title: "Accessible Bathroom",             category: "bathroom" },
-  { src: bathroom2,        title: "Marble Tile Bathroom",            category: "bathroom" },
-  { src: exteriorFlowers,  title: "Blooming Front Garden",           category: "exterior" },
-  { src: exteriorRamp,     title: "Accessible Front Entrance",       category: "exterior" },
-  { src: corridor1,        title: "Care Wing Corridor",              category: "hallway"  },
-  { src: corridor2,        title: "Resident Hallway & Safety Rails", category: "hallway"  },
-  { src: corridor3,        title: "Main Corridor",                   category: "hallway"  },
+  // Living Room
+  { src: sitting,    title: "Comfortable Living Room",          category: "living"   },
+  { src: lr2,        title: "Spacious Seating Area",            category: "living"   },
+  { src: qetewrg,    title: "Relaxing Lounge",                  category: "living"   },
+  { src: sitting2,   title: "Open Common Area",                 category: "living"   },
+  { src: tv2,        title: "Living Room with Fireplace",       category: "living"   },
+  { src: lrBar,      title: "Living Room Overview",             category: "living"   },
+  { src: lr1,        title: "Living Room from Kitchen",         category: "living"   },
+  { src: tv,         title: "Bright Living Space",              category: "living"   },
+  { src: sitting3,   title: "TV & Lounge Area",                 category: "living"   },
+  // Kitchen
+  { src: kitchen,    title: "Full Kitchen",                     category: "kitchen"  },
+  // Bedroom
+  { src: bed,        title: "Private Bedroom",                  category: "bedroom"  },
+  { src: bedroom2,   title: "Resident Room Entrance",           category: "bedroom"  },
+  // Bathroom
+  { src: bath3,      title: "Accessible Bathroom",              category: "bathroom" },
+  { src: bath1,      title: "Marble Tile Bathroom",             category: "bathroom" },
+  { src: bath2,      title: "Bathroom with Sink",               category: "bathroom" },
+  // Exterior
+  { src: extBest,    title: "Welcoming Front Garden",           category: "exterior" },
+  { src: extWide,    title: "Home with Blooming Flowers",       category: "exterior" },
+  { src: extFlower1, title: "Blooming Rhododendrons",           category: "exterior" },
+  { src: extFlower2, title: "Front Garden in Bloom",            category: "exterior" },
+  { src: extRamp1,   title: "Accessible Front Entrance",        category: "exterior" },
+  { src: extRamp2,   title: "Front Ramp & Entry",              category: "exterior" },
+  { src: extRamp3,   title: "Home Exterior",                    category: "exterior" },
+  { src: extStreet,  title: "Street View",                      category: "exterior" },
+  // Corridor
+  { src: corr2,      title: "Main Corridor",                    category: "hallway"  },
+  { src: corr5,      title: "Resident Hallway",                 category: "hallway"  },
+  { src: corr3,      title: "Corridor to Living Area",          category: "hallway"  },
+  { src: corr4,      title: "Hallway with Room Doors",          category: "hallway"  },
+  { src: corr1,      title: "Care Wing Corridor",               category: "hallway"  },
+  { src: corr6,      title: "Safety Rails & Handrails",         category: "hallway"  },
+  { src: corr7,      title: "Nurse Station & Corridor",         category: "hallway"  },
 ];
 
 export function Gallery() {
@@ -104,7 +166,7 @@ export function Gallery() {
             return (
               <button
                 key={cat.key}
-                onClick={() => setActiveCategory(cat.key)}
+                onClick={() => { setActiveCategory(cat.key); setLightboxIndex(null); }}
                 className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
                 style={{
                   backgroundColor: active ? "#2BB5A0" : "#F0FDFA",
@@ -113,10 +175,7 @@ export function Gallery() {
                 }}
               >
                 {cat.label}
-                <span
-                  className="ml-1.5 text-xs"
-                  style={{ opacity: active ? 0.8 : 0.6 }}
-                >
+                <span className="ml-1.5 text-xs" style={{ opacity: active ? 0.8 : 0.6 }}>
                   ({count})
                 </span>
               </button>
@@ -144,9 +203,7 @@ export function Gallery() {
               {/* 2×2 thumbnail grid on right */}
               {[0, 1, 2, 3].map((i) => {
                 const photo = gridThumbs[i];
-                if (!photo) {
-                  return <div key={i} className="bg-gray-100" />;
-                }
+                if (!photo) return <div key={i} className="bg-gray-100" />;
                 const isLast = i === 3;
                 const remainingCount = filtered.length - 5;
                 return (
@@ -163,7 +220,7 @@ export function Gallery() {
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                     {isLast && remainingCount > 0 && (
                       <div
-                        className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
+                        className="absolute inset-0 flex flex-col items-center justify-center"
                         style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
                         onClick={(e) => { e.stopPropagation(); openLightbox(4); }}
                       >
@@ -176,7 +233,7 @@ export function Gallery() {
               })}
             </div>
 
-            {/* "See all photos" button */}
+            {/* See all button */}
             <button
               onClick={() => openLightbox(0)}
               className="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white shadow-lg text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-all duration-200 border border-gray-200"
@@ -221,7 +278,7 @@ export function Gallery() {
             </span>
           </div>
 
-          {/* Prev arrow */}
+          {/* Prev */}
           <button
             onClick={(e) => { e.stopPropagation(); prev(); }}
             className="absolute left-4 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
@@ -244,7 +301,7 @@ export function Gallery() {
             />
           </div>
 
-          {/* Next arrow */}
+          {/* Next */}
           <button
             onClick={(e) => { e.stopPropagation(); next(); }}
             className="absolute right-4 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
