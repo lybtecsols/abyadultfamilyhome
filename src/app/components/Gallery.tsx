@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Button } from "./ui/button";
@@ -26,18 +24,22 @@ const galleryGroups = [
     photos: [
       {
         src: living1,
+        title: "Bright Living Area",
         alt: "A bright living area with comfortable seating",
       },
       {
         src: living2,
+        title: "Family Room",
         alt: "Open family room with soft lighting and cozy seating",
       },
       {
         src: living3,
+        title: "Spacious Lounge",
         alt: "Large living space with recliners and a welcoming layout",
       },
       {
         src: living4,
+        title: "Inviting Lounge",
         alt: "Inviting lounge area with natural wood floors and light",
       },
     ],
@@ -49,10 +51,12 @@ const galleryGroups = [
     photos: [
       {
         src: bedroom1,
+        title: "Cozy Bedroom",
         alt: "Cozy bedroom with a comfortable bed and soft finishing touches",
       },
       {
         src: bedroom2,
+        title: "Peaceful Bedroom",
         alt: "Quiet bedroom with a full bed and peaceful lighting",
       },
     ],
@@ -64,6 +68,7 @@ const galleryGroups = [
     photos: [
       {
         src: bathroom1,
+        title: "Accessible Bathroom",
         alt: "Accessible bathroom with grab bars and tiled walls",
       },
     ],
@@ -75,14 +80,17 @@ const galleryGroups = [
     photos: [
       {
         src: exterior1,
+        title: "Welcoming Front Entrance",
         alt: "Front entrance with flowering shrubs and a welcoming facade",
       },
       {
         src: exterior2,
+        title: "Home Exterior",
         alt: "Exterior view of the home with a ramp and trimmed landscaping",
       },
       {
         src: exterior3,
+        title: "Landscaped Grounds",
         alt: "The home exterior surrounded by trees and greenery",
       },
     ],
@@ -94,18 +102,22 @@ const galleryGroups = [
     photos: [
       {
         src: hallway1,
+        title: "Accessible Hallway",
         alt: "Wide hallway with supportive railings and warm flooring",
       },
       {
         src: hallway2,
+        title: "Clear Walkway",
         alt: "Hallway view with clear walkways and safety handrails",
       },
       {
         src: hallway3,
+        title: "Main Corridor",
         alt: "Hallway leading toward living spaces with even lighting",
       },
       {
         src: hallway4,
+        title: "Connected Hallway",
         alt: "Accessible hallway that connects rooms and living areas",
       },
     ],
@@ -178,7 +190,7 @@ export function Gallery() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{activeGroup.title}</p>
-                  <h3 className="text-2xl font-semibold text-slate-900 mt-2">{selectedPhoto.alt}</h3>
+                  <h3 className="text-2xl font-semibold text-slate-900 mt-2">{selectedPhoto.title}</h3>
                 </div>
                 <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
                   Full image

@@ -1,4 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import aboutPhoto1 from "../../imports/image-1.png";
+import aboutPhoto2 from "../../imports/image-2.png";
 
 export function About() {
   return (
@@ -27,15 +29,15 @@ export function About() {
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-2xl overflow-hidden shadow-lg" style={{ height: "260px" }}>
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1773227060484-41de85f93a08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJlZ2l2ZXIlMjBoZWxwaW5nJTIwZWxkZXJseSUyMHBlcnNvbiUyMHdhcm10aHxlbnwxfHx8fDE3NzYxOTU0NDR8MA&ixlib=rb-4.1.0&q=80&w=600"
-                  alt="Caregiver helping elderly person with warmth"
+                  src={aboutPhoto1}
+                  alt="Caregiver helping a resident in a comfortable home setting"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="rounded-2xl overflow-hidden shadow-lg mt-8" style={{ height: "260px" }}>
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1758691031943-a1e5f78b8bab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3IlMjB3b21hbiUyMHJlbGF4aW5nJTIwY29tZm9ydGFibGUlMjBsaXZpbmclMjByb29tJTIwaG9tZXxlbnwxfHx8fDE3NzYxOTYwNDR8MA&ixlib=rb-4.1.0&q=80&w=600"
-                  alt="Senior woman relaxing comfortably at home"
+                  src={aboutPhoto2}
+                  alt="Resident enjoying a calm and welcoming home environment"
                   className="w-full h-full object-cover"
                 />
               </div>

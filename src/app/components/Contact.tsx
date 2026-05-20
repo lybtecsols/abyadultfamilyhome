@@ -1,4 +1,10 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+
+// EmailJS config — replace these with your actual IDs from emailjs.com
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 
 export function Contact() {
   const [form, setForm] = useState({
@@ -8,10 +14,32 @@ export function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError(null);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone,
+          message: form.message,
+        },
+        EMAILJS_PUBLIC_KEY,
+      );
+      setSubmitted(true);
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch {
+      setError("Something went wrong. Please call us directly at (425) 426-7155.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactInfo = [
@@ -153,7 +181,7 @@ export function Contact() {
             >
               <iframe
                 title="Aby Adult Family Home Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2676.3!2d-122.20!3d47.98!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s3520+19th+St%2C+Everett%2C+WA+98201!5e0!3m2!1sen!2sus!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2688.4869320456!2d-122.21290492346895!3d47.980251971220775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54900d4b8f8afc53%3A0x6e1e8c3e9e4d2b5a!2s3520%2019th%20St%2C%20Everett%2C%20WA%2098201!5e0!3m2!1sen!2sus!4v1716000000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -264,16 +292,20 @@ export function Contact() {
                       onBlur={(e) => (e.target.style.borderColor = "#C6F0EA")}
                     />
                   </div>
+                  {error && (
+                    <p className="text-red-500 text-sm text-center">{error}</p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl text-white transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5 shadow-md"
+                    disabled={sending}
+                    className="w-full py-4 rounded-xl text-white transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5 shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
                     style={{
                       background: "linear-gradient(135deg, #1E8A7E, #2BB5A0)",
                       fontWeight: 700,
                       fontSize: "1rem",
                     }}
                   >
-                    Send Message
+                    {sending ? "Sending…" : "Send Message"}
                   </button>
                   <p className="text-center text-gray-400 text-xs mt-2">
                     Or call us directly:{" "}

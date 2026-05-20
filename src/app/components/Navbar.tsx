@@ -52,19 +52,8 @@ export function Navbar() {
             <li key={link.href}>
               <button
                 onClick={() => handleNav(link.href)}
-                className="px-4 py-2 rounded-full text-gray-700 hover:text-white transition-all duration-200"
-                style={{
-                  fontSize: "0.92rem",
-                  fontWeight: 500,
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#2BB5A0";
-                  (e.currentTarget as HTMLButtonElement).style.color = "white";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
-                  (e.currentTarget as HTMLButtonElement).style.color = "#374151";
-                }}
+                className="px-4 py-2 rounded-full text-gray-700 hover:text-white hover:bg-[#2BB5A0] transition-all duration-200"
+                style={{ fontSize: "0.92rem", fontWeight: 500 }}
               >
                 {link.label}
               </button>
@@ -112,16 +101,8 @@ export function Navbar() {
               <li key={link.href}>
                 <button
                   onClick={() => handleNav(link.href)}
-                  className="w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white transition-all duration-200"
+                  className="w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white hover:bg-[#2BB5A0] transition-all duration-200"
                   style={{ fontWeight: 500 }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#2BB5A0";
-                    (e.currentTarget as HTMLButtonElement).style.color = "white";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
-                    (e.currentTarget as HTMLButtonElement).style.color = "#374151";
-                  }}
                 >
                   {link.label}
                 </button>
