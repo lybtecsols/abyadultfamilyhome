@@ -1,10 +1,4 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
-
-// EmailJS config — replace these with your actual IDs from emailjs.com
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 
 export function Contact() {
   const [form, setForm] = useState({
@@ -22,21 +16,20 @@ export function Contact() {
     setSending(true);
     setError(null);
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: form.name,
-          from_email: form.email,
-          phone: form.phone,
-          message: form.message,
-        },
-        EMAILJS_PUBLIC_KEY,
-      );
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error ?? "Failed to send.");
+      }
       setSubmitted(true);
       setForm({ name: "", email: "", phone: "", message: "" });
-    } catch {
-      setError("Something went wrong. Please call us directly at (425) 426-7155.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong.";
+      setError(`${message} Please call us directly at (425) 426-7155.`);
     } finally {
       setSending(false);
     }
